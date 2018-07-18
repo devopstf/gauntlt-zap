@@ -1,31 +1,24 @@
-all: help
+.PHONY: help
+.DEFAULT_GOAL := help
 
-build:
+build: ## Building Gauntlt image from Dockerfile
 	@echo "Building docker container..."
 	@./build-gauntlt.sh
 
-clean:
+clean: ## Remove unused containers
 	@echo "Removing unused docker containers..."
 	@./docker-clean.sh
 
-clean-all: clean
+clean-all: ## Remove Gauntlt image
 	@echo "Removing gauntlt image..."
 	@docker rmi gauntlt
 
-interactive:
+interactive: ## Getting into Gauntlt container
 	@docker run --rm -it --entrypoint /bin/bash gauntlt
 
-install-stub:
+install-stub: ## Put Gauntlt into your path
 	@echo "installing gauntlt-docker to /usr/local/bin"
 	@cp ./bin/gauntlt-docker /usr/local/bin
 
 help:
-	@echo "the help menu"
-	@echo "  make build"
-	@echo "  make clean"
-	@echo "  make clean-all"
-	@echo "  make help"
-	@echo "  make install-stub"
-	@echo "  make interactive"
-
-.PHONY: build clean
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

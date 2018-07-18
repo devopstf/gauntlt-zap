@@ -75,4 +75,16 @@ RUN apt-get update && \
     apt-get install -y nmap && \
     rm -rf /var/lib/apt/lists/*
 
+# owasp-zap
+RUN echo 'deb http://download.opensuse.org/repositories/home:/cabelo/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/home:cabelo.list && \
+    apt-get update && \
+    apt-get install -y --allow-unauthenticated owasp-zap	
+
+ENV ZAP_PATH=/usr/share/owasp-zap
+
+EXPOSE 8090
+
+# zap-cli
+RUN pip install --upgrade zapcli
+
 ENTRYPOINT [ "/usr/local/bin/gauntlt" ]
