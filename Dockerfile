@@ -80,9 +80,9 @@ RUN echo 'deb http://download.opensuse.org/repositories/home:/cabelo/xUbuntu_16.
     apt-get update && \
     apt-get install -y --allow-unauthenticated owasp-zap	
 
-ENV ZAP_PATH=/usr/share/owasp-zap
+COPY start-zap.sh /usr/local/bin
 
-EXPOSE 8090
+ENV ZAP_PATH=/usr/share/owasp-zap
 
 # zap-cli
 RUN pip install --upgrade zapcli
