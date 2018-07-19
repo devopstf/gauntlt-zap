@@ -1,5 +1,7 @@
 FROM ubuntu:16.04
-MAINTAINER james@gauntlt.org
+MAINTAINER devopstenerife@gmail.com
+
+# Modified from James Wickett's Security Test Course on Lynda
 
 ARG ARACHNI_VERSION=arachni-1.5.1-0.5.12
 
@@ -59,9 +61,8 @@ ENV SQLMAP_PATH /opt/sqlmap/sqlmap.py
 RUN git clone --depth=1 https://github.com/sqlmapproject/sqlmap.git
 
 # dirb
-COPY vendor/dirb222.tar.gz dirb222.tar.gz
-
-RUN tar xvfz dirb222.tar.gz > /dev/null && \
+RUN wget -O dirb222.tar.gz https://downloads.sourceforge.net/project/dirb/dirb/2.22/dirb222.tar.gz && \
+    tar xvfz dirb222.tar.gz > /dev/null && \
     cd dirb222 && \
     chmod 755 ./configure && \
     ./configure && \
@@ -76,15 +77,19 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # owasp-zap
-RUN echo 'deb http://download.opensuse.org/repositories/home:/cabelo/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/home:cabelo.list && \
+RUN echo 'deb [trusted=yes] http://download.opensuse.org/repositories/home:/cabelo/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/home:cabelo.list && \
     apt-get update && \
     apt-get install -y --allow-unauthenticated owasp-zap	
-
-COPY start-zap.sh /usr/share/owasp-zap
 
 ENV ZAP_PATH=/usr/share/owasp-zap
 
 # zap-cli
-RUN pip install --upgrade zapcli
+RUN pip install --disable-pip-version-check zapcli
+
+RUN mkdir -p /working
+
+VOLUME /working
+
+WORKDIR /working
 
 ENTRYPOINT [ "/usr/local/bin/gauntlt" ]

@@ -1,1 +1,77 @@
-tmp
+######################
+# Directories #
+######################
+
+build/
+bin/
+target/
+libs/
+tmp/
+node_modules/
+jaxws/jaxws-client/src/main/
+.vagrant/
+ 
+######################
+# OS Files #
+######################
+
+.DS_Store
+
+######################
+# Package Files #
+######################
+
+*.jar
+*.war
+*.ear
+*.db
+*.zip
+*.tar.gz
+*.rar
+*.box
+rebel.xml
+
+######################
+# Compiled class file
+######################
+
+*.class
+
+######################
+# Log file
+######################
+
+*.log
+
+######################
+# Windows
+######################
+
+# Windows image file caches
+Thumbs.db 
+
+# Folder config file
+Desktop.ini
+
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+/.project
+.metadata
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.project
+.settings/
+.loadpath
+
+########################
+# Others
+########################
+
+*.retry

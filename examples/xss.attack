@@ -4,8 +4,9 @@ Feature: Look for cross site scripting (xss) using arachni and owasp-zap
 Background:
   Given "arachni" is installed
   And the following environment variables:
-  | name  | environment_variable_name |
-  | url   | TARGET_HOSTNAME           |
+  | name  | environment_variable_name           |
+  | url   | TARGET_HOSTNAME                     |
+  And I successfully run "zap-cli start -o "-config api.disablekey=true -config scanner.attackOnStart=true -config view.mode=attack -config connection.dnsTtlSuccessfulQueries=-1 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true""
 
 Scenario: Using arachni, look for cross site scripting and verify no issues are found
   When I launch an "arachni" attack with:
@@ -15,9 +16,10 @@ Scenario: Using arachni, look for cross site scripting and verify no issues are 
   Then the output should contain "0 issues were detected"
 
 Scenario: Using owasp-zap, launch a quick scan against target url
+  Given I successfully run "zap-cli open-url "http://www.terraceando.com""
+  And I successfully run "zap-cli active-scan -s xss,sqli --spider -r "http://www.terraceando.com""    
   When I launch a "generic" attack with:
   """
-  /usr/share/owasp-zap/start-zap.sh && \
-  zap-cli -p 2375 quick-scan -s xss --spider -r <url>
+  zap-cli alerts
   """
   Then the output should contain "Issues found: 0"
