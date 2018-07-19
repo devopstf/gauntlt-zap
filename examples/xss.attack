@@ -17,8 +17,7 @@ Scenario: Using arachni, look for cross site scripting and verify no issues are 
 Scenario: Using owasp-zap, launch a quick scan against target url
   When I launch a "generic" attack with:
   """
-  /usr/share/owasp-zap/zap.sh -daemon -port 2375 -host 127.0.0.1 -config api.disablekey=true -config scanner.attackOnStart=true -config view.mode=attack \
-  -config connection.dnsTtlSuccessfulQueries=-1 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true && \
-  zap-cli -p 2375 quick-scan --self-contained  -s xss --spider -r <url> && \
+  /usr/share/owasp-zap/start-zap.sh && \
+  zap-cli -p 2375 quick-scan -s xss --spider -r <url>
   """
   Then the output should contain "Issues found: 0"

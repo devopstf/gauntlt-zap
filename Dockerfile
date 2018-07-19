@@ -80,7 +80,7 @@ RUN echo 'deb http://download.opensuse.org/repositories/home:/cabelo/xUbuntu_16.
     apt-get update && \
     apt-get install -y --allow-unauthenticated owasp-zap	
 
-COPY start-zap.sh /usr/local/bin
+COPY start-zap.sh /usr/share/owasp-zap
 
 ENV ZAP_PATH=/usr/share/owasp-zap
 
