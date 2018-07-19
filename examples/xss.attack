@@ -17,6 +17,6 @@ Scenario: Using arachni, look for cross site scripting and verify no issues are 
 Scenario: Using owasp-zap, launch a quick scan against target url
   When I launch a "generic" attack with:
   """
-  zapr --zap-path=/usr/share/owasp-zap/zap.sh --debug --summary <url>
+  zapr --zap-path=/usr/share/owasp-zap/zap.sh --debug --summary --timeout 1000 <url>
   """
   Then the output should contain "Issues found: 0"
