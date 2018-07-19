@@ -32,6 +32,7 @@ RUN apt-get update && \
 # Install Gauntlt
 RUN gem install ffi -v 1.9.18
 RUN gem install gauntlt --no-rdoc --no-ri
+RUN gem install zapr
 
 # Install Attack tools
 WORKDIR /opt
