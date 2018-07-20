@@ -4,7 +4,7 @@ Feature: check to make sure the right ports are open on our server that we set i
     Given "nmap" is installed
     And the following environment variables:
      | name      | environment_variable_name |
-     | hostname  | TARGET_HOSTNAME             |
+     | hostname  | TARGET_HOSTNAME           |
 
   Scenario: Verify server is open on expected ports
     When I launch an "nmap" attack with:

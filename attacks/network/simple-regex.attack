@@ -4,7 +4,7 @@ Feature: simple nmap attack (sanity check)
     Given "nmap" is installed
     And the following profile:
       | name       | value                    |
-      | hostname   | docker.for.mac.localhost |
+      | hostname   | TARGET_HOSTNAME          |
       | https_port | 443                      |
       | http_port  | 80                       |
 

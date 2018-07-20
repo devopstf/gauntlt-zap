@@ -3,8 +3,8 @@ Feature: check to make sure the right ports are open on our server
   Background:
     Given "nmap" is installed
     And the following profile:
-      | name       | value                       |
-      | host       | docker.for.mac.localhost    |
+      | name       | value               |
+      | host       | TARGET_HOSTNAME     |
 
   Scenario: Verify server is open on expected ports
     When I launch an "nmap" attack with:
