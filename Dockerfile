@@ -81,7 +81,8 @@ RUN echo 'deb [trusted=yes] http://download.opensuse.org/repositories/home:/cabe
     apt-get update && \
     apt-get install -y --allow-unauthenticated owasp-zap	
 
-ENV ZAP_PATH=/usr/share/owasp-zap
+ENV ZAP_PATH=/usr/share/owasp-zap/zap.sh
+ENV ZAP_PORT=8090
 
 # zap-cli
 RUN pip install --disable-pip-version-check zapcli
@@ -94,6 +95,5 @@ RUN mkdir -p /working
 VOLUME /working
 
 WORKDIR /working
-COPY zap-attack.sh zap-attack.sh
 
 ENTRYPOINT [ "/usr/local/bin/gauntlt" ]
