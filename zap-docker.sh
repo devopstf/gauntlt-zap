@@ -49,7 +49,7 @@ docker exec $CONTAINER_ID zap-cli -v -p $ZAP_API_PORT active-scan -r $TARGET_URL
 docker exec $CONTAINER_ID zap-cli -p $ZAP_API_PORT alerts
 
 # generating the report in HTML format
-docker exec $CONTAINER_ID zap-cli -p $ZAP_API_PORT report -f html -o /zap/working/zap-report.html
+docker exec $CONTAINER_ID zap-cli -p $ZAP_API_PORT report -f html -o /zap/working/reports/zap-report.html
 
 # gathering container logs
 docker logs $CONTAINER_ID >& zap.log
