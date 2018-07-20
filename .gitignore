@@ -40,10 +40,19 @@ rebel.xml
 *.class
 
 ######################
-# Log file
+# Log files
 ######################
 
 *.log
+
+######################
+# Report files
+######################
+
+*.afr
+*-report.xml
+*-report.json
+*-report.html
 
 ######################
 # Windows
