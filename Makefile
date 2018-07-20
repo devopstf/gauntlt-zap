@@ -14,7 +14,7 @@ clean-all: ## Remove Gauntlt image
 	@docker rmi gauntlt
 
 interactive: ## Getting into Gauntlt container
-	@docker run --rm -it --entrypoint /bin/bash gauntlt
+	@docker run --rm -it -v $(pwd):/working --entrypoint /bin/bash gauntlt
 
 install-stub: ## Put Gauntlt into your path
 	@echo "installing gauntlt-docker to /usr/local/bin"

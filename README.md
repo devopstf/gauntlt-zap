@@ -1,20 +1,23 @@
-# gauntlt-docker
-the docker for gauntlt
+# Gauntlt with ZAP and Arachni for Docker
+Docker containers for security testing based on James Wickett's Gauntlt, and owasp-zap for CI/CD by Stephen Donner
 
 ## How it works
-This is not a traditional docker container. It is purposely made to get started with security testing with gauntlt. There are a couple things we do here that are a bit different.
+The Gauntlt container is purposely made to get started with security testing with Gauntlt.
 
-- Arachni and nikto are installed inside this container
+- Arachni, nikto, dirb, sqlmap, nmap, owasp-zap (zap-cli, and zapr are included) are installed inside the container as a basic set of attacking tools
 - Gauntlt is installed and is set as the entrypoint
-- You can run `make install-stub` and on your host machine you will be able to just run `$ gauntlt-docker` as if you were running `$ gauntlt` in your host. It's neat but not conventional.
+- You can run `make install-stub` for including `gauntlt-docker`into your path
 
-Feel free to fork this and customize for your needs. This container is great to put into a CI/CD pipeline and many people use it for this purpose.
+You can also run your attacks using Arachni or ZAP outside Gauntlt. There are two ad-hoc scripts for doing that you can use and modify:
+
+- ``./zap-docker.sh <target-url>``
+- ``./arachni-docker.sh <target-url>``
 
 ## Setup
 
 1. Clone this repo
   ```
-  git clone https://github.com/gauntlt/gauntlt-docker.git
+  git clone https://github.com/devopstf/gauntlt-zap
   ```
 
 2. Build the docker container
@@ -26,7 +29,7 @@ Feel free to fork this and customize for your needs. This container is great to 
 
 3. Check out what `make` can do for you
   ```
-  $ make help
+  $ make
   ```
 
 4. Copy binary stub to your $PATH (like `/usr/local/bin`)
@@ -36,10 +39,12 @@ Feel free to fork this and customize for your needs. This container is great to 
 
 5. Test it out with a `gauntlt-docker --help`
 
-6. You can get interactive access to the container to test attack tools installed
+6. You can get interactive access to the container (with current path bind mounted to ``/working``) to test attack tools installed
   ```
   $ make interactive
   ```
 
-## Have fun!
-Gauntlt makes security testing fun and we hope you enjoy using it! This repo is used in many of the DevOps and Security courses on Lynda.com filmed by Ernest Mueller, Karthik Gaekwad, Peco Karayanev and James Wickett. Check out the best [devops classes](https://www.lynda.com/SharedPlaylist/ccf29d5fa587472c95573529a0a94363) around.
+7. You can set your target URL into the config file for Cucumber, located at ``config/cucumber.yml``, using the following script:
+```
+$ ./set-target.sh <target-url>
+```

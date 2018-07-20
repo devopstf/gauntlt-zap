@@ -32,7 +32,6 @@ RUN apt-get update && \
 # Install Gauntlt
 RUN gem install ffi -v 1.9.18
 RUN gem install gauntlt --no-rdoc --no-ri
-RUN gem install zapr
 
 # Install Attack tools
 WORKDIR /opt
@@ -87,10 +86,14 @@ ENV ZAP_PATH=/usr/share/owasp-zap
 # zap-cli
 RUN pip install --disable-pip-version-check zapcli
 
+# zapr
+RUN gem install zapr
+
 RUN mkdir -p /working
 
 VOLUME /working
 
 WORKDIR /working
+COPY zap-attack.sh zap-attack.sh
 
 ENTRYPOINT [ "/usr/local/bin/gauntlt" ]
