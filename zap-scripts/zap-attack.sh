@@ -8,6 +8,11 @@ elif [ $# -gt 1 ]; then
   exit 2
 fi
 
+if ! echo $1 | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"; then
+  echo 1>&2 "Unexpected argument: no such URL"
+  exit 2
+fi
+
 # starting the ZAP daemon
 zap-cli start -o "-config api.disablekey=true -config scanner.attackOnStart=true -config view.mode=attack -config connection.dnsTtlSuccessfulQueries=-1 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true"
 
