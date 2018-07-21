@@ -2,9 +2,9 @@
 This repo is intended for hosting a handful of scripts for security testing based on [James Wickett's security testing class](https://github.com/wickett/security-testing-class), and [dockerized owasp-zap for CI/CD by Stephen Donner](https://github.com/stephendonner/docker-zap)
 
 ## How it works
-The Gauntlt container is purposely made to get started with security testing with Gauntlt.
+The [Gauntlt](https://github.com/gauntlt/gauntlt) container is purposely made to get started with security testing with Gauntlt.
 
-- Arachni, nikto, dirb, sqlmap, nmap, owasp-zap (zap-cli, and zapr are included) are installed inside the container as a basic set of attacking tools
+- [Arachni](https://github.com/Arachni/arachni), nikto, dirb, sqlmap, nmap, [owasp-zap](https://github.com/zaproxy/zaproxy) ([zap-cli](https://github.com/Grunny/zap-cli), and [zapr](https://github.com/garethr/zapr) are included) are installed inside the container as a basic set of attacking tools
 - Gauntlt is installed and is set as the entrypoint
 - You can run `make path` for including `gauntlt-docker`and other scripts into your path
 
@@ -43,3 +43,13 @@ You can also run your attacks using Arachni or ZAP outside Gauntlt. There are tw
 ```
 $ gauntlt-target <target-url>
 ```
+
+## Test Application
+
+You can use [Gruyere](https://google-gruyere.appspot.com/part1), the cheese web application from _Google Code Labs_ for testing purposes: you can either set it up online, or using [a docker image](https://hub.docker.com/r/karthequian/gruyere/) through the makefile provided:
+```
+  $ cd /path/to/cloned/repo/gauntlt-docker
+  $ make get-gruyere
+  $ make gruyere-start
+  $ make gruyere-kill
+  ```
