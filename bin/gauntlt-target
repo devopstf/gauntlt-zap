@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]; then
+  echo 1>&2 "Usage: set-target.sh <target-url>"
+  exit 2
+elif [ $# -gt 1 ]; then
+  echo 1>&2 "[ERROR]: too many arguments"
+  exit 2
+fi
+
+if ! echo $1 | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*"; then
+  echo 1>&2 "Unexpected argument: no such URL"
+  exit 2
+fi
+
+echo "default: TARGET_HOSTNAME=$1" > $(pwd)/config/cucumber.yml
