@@ -7,8 +7,12 @@ The [Gauntlt](https://github.com/gauntlt/gauntlt) container is purposely made to
 - [Arachni](https://github.com/Arachni/arachni), nikto, dirb, sqlmap, nmap, [owasp-zap](https://github.com/zaproxy/zaproxy) ([zap-cli](https://github.com/Grunny/zap-cli), and [zapr](https://github.com/garethr/zapr) are included) are installed inside the container as a basic set of attacking tools
 - Gauntlt is installed and is set as the entrypoint
 - You can run `make path` for including `gauntlt-docker`and other scripts into your path
+- Gauntlt is based on [Aruba extension](https://github.com/cucumber/aruba) for [Cumcumber framework](https://github.com/cucumber/cucumber-ruby); hence yo can define your attacks using [Gherkin syntax](https://docs.cucumber.io/gherkin/reference/) for your scenarios (i.e. using Given, When, Then, clauses)
+- You can find sample attacks from James Wicketts's classes included into the ``attcks`` folder.
 
-You can also run your attacks using Arachni or ZAP outside Gauntlt. There are two ad-hoc scripts for doing that you can use and modify:
+You can also run your attacks using Arachni or ZAP outside Gauntlt.
+
+There are two ad-hoc scripts for doing that you can use and modify:
 
 - ``zap-docker <target-url>``
 - ``arachni-docker <target-url>``
