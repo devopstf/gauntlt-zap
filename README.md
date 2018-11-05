@@ -20,6 +20,7 @@ There are two ad-hoc scripts for doing that you can use and modify:
 ## Setup
 
 1. Clone this repo
+
   ```
   git clone https://github.com/devopstf/gauntlt-zap
   ```
@@ -32,28 +33,48 @@ There are two ad-hoc scripts for doing that you can use and modify:
   ```
 
 3. Copy binary stub to your $PATH (like `/usr/local/bin`)
+
   ```
   $ make path
   ```
 
-4. Test it out with a `gauntlt-docker --help`
+4. Test it out,
 
-5. You can get interactive access to the container (with current path bind mounted to ``/working``) to test attack tools installed
+  ```
+  $ gauntlt-docker --help
+  ```
+
+5. Set your target URL into the config file for Cucumber, located at ``config/cucumber.yml``, using the following command:
+
+  ```
+  $ gauntlt-target <target-url>
+  ```
+
+6. Launch your attack,
+
+  ```
+  gauntl-docker path/to/your/file.attack
+  ```
+
+You can get interactive access to the container (with current path bind mounted to ``/working``) to individually test attack tools installed
+
   ```
   $ make interactive
   ```
 
-6. You can set your target URL into the config file for Cucumber, located at ``config/cucumber.yml``, using the following command:
-```
-$ gauntlt-target <target-url>
-```
 
 ## Test Application
 
 You can use [Gruyere](https://google-gruyere.appspot.com/part1), the cheese web application from _Google Code Labs_ for testing purposes: you can either set it up online, or using [a docker image](https://hub.docker.com/r/karthequian/gruyere/) through the makefile provided:
-```
+  
+  ```
   $ cd /path/to/cloned/repo/gauntlt-docker
   $ make get-gruyere
   $ make gruyere-start
+  ```
+
+Once you're done, you can simply kill the application instance issuing this command:
+
+  ```
   $ make gruyere-kill
   ```
