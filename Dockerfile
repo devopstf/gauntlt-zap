@@ -31,6 +31,7 @@ RUN apt-get update && \
 
 # Install Gauntlt
 RUN gem install ffi -v 1.9.18
+RUN gem update
 RUN gem install gauntlt --no-rdoc --no-ri
 
 # Install Attack tools
