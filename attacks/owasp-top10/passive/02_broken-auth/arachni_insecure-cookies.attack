@@ -1,0 +1,15 @@
+@slow
+Feature: Look for cross site scripting (xss) using arachni against our site
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Do a full check on Session Fixation
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=session_fixation
+  """
+  Then the output should contain "0 issues were detected."

@@ -1,0 +1,15 @@
+@slow
+Feature: Look for cross site scripting (xss) using arachni against our site
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Check If injecting JS taint code is possible and can be executed properly
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_script_context
+  """
+  Then the output should contain "0 issues were detected."

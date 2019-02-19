@@ -1,0 +1,15 @@
+@slow
+Feature: Look for XML External Entities (XXE) using arachni against our site
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Check if XXE is possible
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xxe
+  """
+  Then the output should contain "0 issues were detected."
