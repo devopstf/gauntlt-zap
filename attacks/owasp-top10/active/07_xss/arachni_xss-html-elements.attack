@@ -1,0 +1,29 @@
+@slow
+Feature: Look for cross site scripting (xss) using arachni against our site
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Check for XSS inside event attributes
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_event
+  """
+  Then the output should contain "0 issues were detected."
+
+Scenario: Check for XSS in URL Path
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_path
+  """
+  Then the output should contain "0 issues were detected."
+
+Scenario: Check for XSS inside HTML tags
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_tag
+  """
+  Then the output should contain "0 issues were detected."

@@ -1,0 +1,32 @@
+@slow
+Feature: Look for misconfiguration in different URL policies
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@passive
+Scenario: Check for insecure client-access policy
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=insecure_client_access_policy
+  """
+  Then the output should contain "0 issues were detected."
+
+@passive
+Scenario: Check for insecure cross-domain policy (access)
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=insecure_cross_domain_policy_access
+  """
+  Then the output should contain "0 issues were detected."
+
+@passive
+Scenario: Check for insecure cross-domain policy (headers)
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=insecure_cross_domain_policy_headers
+  """
+  Then the output should contain "0 issues were detected."

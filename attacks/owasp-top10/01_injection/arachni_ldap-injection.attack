@@ -1,0 +1,17 @@
+@reallyslow
+Feature: Using Arachni, perform some checks on different kinds of Injection
+  # See: https://github.com/sqlmapproject/sqlmap/wiki/Usage
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | target_url | TARGET_HOSTNAME            |
+
+@active
+Scenario: Check If a LDAP Injection can be performed
+  When I launch a "arachni" attack with:
+    """
+    arachni <target_url> checks=ldap_injection
+    """
+  Then the output should contain "0 issues were detected."

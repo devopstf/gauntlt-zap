@@ -1,0 +1,15 @@
+@slow
+Feature: Look for misconfiguration in LIMIT directives that can block GET request but not POST ones
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Looking for HTACCESS limits
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=htaccess_limit
+  """
+  Then the output should contain "0 issues were detected."

@@ -1,0 +1,42 @@
+FROM ubuntu:18.04
+MAINTAINER devopstenerife@gmail.com
+
+# Modified from James Wickett's Security Test Course on Lynda
+
+ARG ARACHNI_VERSION=1.5.1
+ARG ARACHNI_FULL_NAME=arachni-${ARACHNI_VERSION}-0.5.12
+ARG ARACHNI_DEPENDENCIES="curl libcurl3 libcurl4-openssl-dev"
+ARG RUBY_DEPENDENCIES="build-essential gcc make git ruby ruby-dev ruby-bundler zlib1g-dev libfontconfig libxml2-dev libxslt1-dev"
+ARG COMMON_DEPENDENCIES="wget python2.7 python2.7-dev python-pip ca-certificates nmap"
+
+# Install Ruby and other OS stuff
+RUN apt-get update && \
+    apt-get install -y ${INSTALL_PACKAGES} ${RUBY_DEPENDENCIES} ${COMMON_DEPENDENCIES} && \
+    apt-get clean && \
+    mkdir -p /working
+
+# Ruby General
+RUN gem install ffi -v 1.9.18 && \
+    gem install rake 
+
+# Install Gauntlt
+RUN gem install gauntlt --no-rdoc --no-ri
+
+# Install Attack tools
+WORKDIR /opt
+
+# arachni
+RUN wget https://github.com/Arachni/arachni/releases/download/v${ARACHNI_VERSION}/${ARACHNI_FULL_NAME}-linux-x86_64.tar.gz && \
+    tar xzvf ${ARACHNI_FULL_NAME}-linux-x86_64.tar.gz > /dev/null && \
+    mv ${ARACHNI_FULL_NAME} /usr/local && \
+    ln -s /usr/local/${ARACHNI_FULL_NAME}/bin/* /usr/local/bin/ && \
+    rm -rf ${ARACHNI_FULL_NAME}-linux-x86_64.tar.gz
+
+# sqlmap
+ENV SQLMAP_PATH /opt/sqlmap/sqlmap.py
+RUN git clone --depth=1 https://github.com/sqlmapproject/sqlmap.git 
+
+VOLUME /working
+WORKDIR /working
+
+ENTRYPOINT [ "/usr/local/bin/gauntlt" ]

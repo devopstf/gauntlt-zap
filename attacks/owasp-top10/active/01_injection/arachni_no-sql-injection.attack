@@ -1,0 +1,23 @@
+@reallyslow
+Feature: Using Arachni, perform some checks on different kinds of Injection
+  # See: https://github.com/sqlmapproject/sqlmap/wiki/Usage
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | target_url | TARGET_HOSTNAME            |
+
+Scenario: Identify No SQL injection vulnerabilities   
+  When I launch a "arachni" attack with:
+    """
+    arachni <target_url> checks=no_sql_injection
+    """
+  Then the output should contain "0 issues were detected."
+
+Scenario: Identify No SQL injection vulnerabilities (Differential Analysis)
+  When I launch a "arachni" attack with:
+    """
+    arachni <target_url> checks=no_sql_injection_differential
+    """
+  Then the output should contain "0 issues were detected."

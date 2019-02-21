@@ -1,0 +1,24 @@
+@slow
+Feature: Look for misconfiguration in multiple interfaces (administration, server directories, etc...)
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@passive
+Scenario: Looking for Backup directories on server
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=backup_directories
+  """
+  Then the output should contain "0 issues were detected."
+
+@passive
+Scenario: Try to discover Backup files on server...
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=backup_files
+  """
+  Then the output should contain "0 issues were detected."

@@ -1,0 +1,25 @@
+@slow
+Feature: Look for sensible information 
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@passive
+Scenario: Check If there's possible credit cards exposed
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=credit_card
+  """
+  Then the output should contain "0 issues were detected."
+
+@passive
+Scenario: Check If there's emails exposed
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=emails
+  """
+  Then the output should contain "0 issues were detected."
+

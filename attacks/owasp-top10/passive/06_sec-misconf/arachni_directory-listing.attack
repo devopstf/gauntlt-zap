@@ -1,0 +1,15 @@
+@slow
+Feature: Look for misconfiguration in directory listing
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Check If I can get a directories list
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=directory_listing
+  """
+  Then the output should contain "0 issues were detected."

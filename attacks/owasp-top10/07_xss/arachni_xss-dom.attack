@@ -1,0 +1,24 @@
+@slow
+Feature: Look for cross site scripting (xss) using arachni against our site
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@active
+Scenario: Check for DOM based XSS (Type-0) 
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_dom
+  """
+  Then the output should contain "0 issues were detected."
+
+@active
+Scenario: Check for DOM based XSS with Script Context
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=xss_dom_script_context
+  """
+  Then the output should contain "0 issues were detected."

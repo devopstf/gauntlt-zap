@@ -1,0 +1,15 @@
+@slow
+Feature: Look for the possibility of Spoofing
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+Scenario: Check If I can bypass origin access restrictions by spoofing my IP
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=origin_spoof_access_restriction_bypass
+  """
+  Then the output should contain "0 issues were detected."

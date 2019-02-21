@@ -1,0 +1,16 @@
+@slow
+Feature: Look for the possibility brute force possibilities
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@passive
+Scenario: Check If localstart.asp exists, vulnerable to brute force attacks (Basic auth)
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=localstart_asp
+  """
+  Then the output should contain "0 issues were detected."
