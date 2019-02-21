@@ -1,0 +1,24 @@
+@slow
+Feature: Look for misconfiguration in HTTP
+
+Background:
+  Given "arachni" is installed
+  And the following environment variables:
+     | name       | environment_variable_name  |
+     | url        | TARGET_HOSTNAME            |
+
+@passive
+Scenario: Check If I can upload files through PUT
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=http_put
+  """
+  Then the output should contain "0 issues were detected."
+
+@passive
+Scenario: Log cookies accessible through JavaScript
+  When I launch an "arachni" attack with:
+  """
+  arachni <url> --checks=http_only_cookies
+  """
+  Then the output should contain "0 issues were detected."
